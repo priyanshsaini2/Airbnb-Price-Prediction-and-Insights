@@ -1,158 +1,105 @@
-# Airbnb Price Prediction and Insights
-
-## Table of Contents
-
-* [Project Overview](#project-overview)
-* [Problem Statement](#problem-statement)
-* [Dataset Information](#dataset-information)
-* [Objectives](#objectives)
-* [Approach](#approach)
-
-  * [1. Data Exploration and Preprocessing](#1-data-exploration-and-preprocessing)
-  * [2. Model Development](#2-model-development)
-  * [3. Model Evaluation](#3-model-evaluation)
-  * [4. Insights and Recommendations](#4-insights-and-recommendations)
-* [Tools and Technologies Used](#tools-and-technologies-used)
-* [How to Run the Project](#how-to-run-the-project)
-* [Success Criteria](#success-criteria)
-* [Final Deliverables](#final-deliverables)
-
+# Airbnb Price Prediction Using Machine Learning (Part 1)
 
 ## Project Overview
 
-Airbnb allows property owners to rent out spaces to travelers. Pricing listings effectively is key to maximizing revenue and staying competitive. This project builds a machine learning model to **predict the price of Airbnb listings** using various features such as room type, location, host details, and amenities. The analysis provides actionable insights for hosts to make data-driven pricing decisions.
+This project aims to build a machine learning model that predicts the **log-transformed price** of Airbnb listings. By analyzing various features like property type, location, host experience, and amenities, the model helps estimate listing prices accurately. The model used is a **Random Forest Regressor**, and it is evaluated using common performance metrics to ensure reliability.
 
-## Problem Statement
+---
 
-The main objective is to create a **regression model** that accurately predicts the price of Airbnb listings. By analyzing features such as:
+## What This Project Does
 
-* Property type
-* Room type
-* Number of reviews
-* Location
-* Amenities
-* Host characteristics
+* Loads and explores Airbnb listing data.
+* Cleans and preprocesses the data, handling missing values and outliers.
+* Creates new features from existing data (feature engineering), such as host experience duration and review dates.
+* Converts categorical data into numerical format for model use.
+* Scales numerical features for better model performance.
+* Builds and trains a Random Forest regression model to predict prices.
+* Evaluates the model using Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and R² score.
+* Visualizes the results and model predictions to understand performance and errors.
 
-The goal is to help hosts understand what drives price changes and offer pricing recommendations that enhance both host revenue and guest satisfaction.
+---
 
+## Why This Is Important
 
-## Dataset Information
+Pricing an Airbnb listing correctly is critical for hosts to maximize their earnings and stay competitive. This model helps by:
 
-* **Dataset Name:** `Airbnb_data`
-* **Data Source:** Provided internally or sourced from Airbnb open data repositories.
-* **Features Include:**
+* Providing data-driven price predictions based on listing details.
+* Highlighting key factors that influence pricing.
+* Offering insights to improve listing strategies.
 
-  * Listing ID
-  * Property type
-  * Room type
-  * Location (latitude, longitude, neighborhood)
-  * Number of reviews
-  * Availability
-  * Minimum nights
-  * Host listings count
-  * Amenities
-  * Price
+---
 
-## Objectives
+## Step-by-Step Process
 
-1. Understand and clean the dataset.
-2. Perform feature engineering and transformation.
-3. Train regression models to predict price.
-4. Evaluate model performance using appropriate metrics.
-5. Extract insights for hosts to improve pricing decisions.
+1. **Data Loading & Exploration:**
+   Read the data and understand its structure, check for missing values, and get initial statistical summaries.
 
-## Approach
+2. **Data Visualization:**
+   Visualize the distribution of prices (after log transformation) and identify outliers.
 
-### 1. Data Exploration and Preprocessing
+3. **Feature Engineering:**
+   Extract new features such as:
 
-* Handled missing values using imputation.
-* Identified and treated outliers using statistical methods and visualization.
-* Performed EDA (Exploratory Data Analysis) using seaborn and matplotlib.
-* Feature engineering included:
+   * Year and month of first and last reviews.
+   * Host experience measured in days since first listing.
 
-  * Counting number of amenities
-  * Converting categorical variables using one-hot encoding
-  * Binning and transforming continuous variables
+4. **Categorical Encoding:**
+   Convert categorical variables like property type and neighborhood into numerical format using one-hot encoding.
 
-### 2. Model Development
+5. **Data Cleaning & Scaling:**
 
-* Tried multiple regression algorithms:
+   * Clean zipcode data to numerical format.
+   * Impute missing numerical values using medians.
+   * Standardize features using scaling for uniformity.
 
-  * Linear Regression
-  * Ridge & Lasso Regression
-  * Decision Tree Regressor
-  * Random Forest Regressor
-  * XGBoost Regressor
-* Used train-validation-test split to evaluate performance
-* Hyperparameter tuning using GridSearchCV
+6. **Model Development:**
+   Train a Random Forest Regressor on the processed data with a train-test split.
 
-### 3. Model Evaluation
+7. **Preprocessing Pipeline:**
+   Use pipelines to ensure consistent data transformation during training and testing phases.
 
-Evaluated models using:
+8. **Model Evaluation:**
+   Evaluate model accuracy using:
 
-* **RMSE (Root Mean Squared Error)**
-* **MAE (Mean Absolute Error)**
-* **R² Score (Coefficient of Determination)**
+   * MAE (lower is better)
+   * RMSE (lower is better)
+   * R² (higher is better, here \~64.5%)
 
-Selected the best-performing model based on validation score and generalization ability.
+9. **Visualization of Predictions:**
+   Plot actual vs predicted prices and analyze residuals to check for errors or biases.
 
-### 4. Insights and Recommendations
+---
 
-* Neighborhoods and room types significantly affect pricing.
-* Listings with higher number of amenities tend to have higher prices.
-* Host experience (number of listings and reviews) plays a role in pricing.
+## Results Summary
 
+* **MAE:** 0.3087
+* **RMSE:** 0.4238
+* **R² Score:** 0.6449 (Model explains \~64.5% of price variance)
 
-## Tools and Technologies Used
+The model performs well in capturing the complexity of Airbnb pricing, making it useful for price estimation and decision-making.
 
-* **Languages:** Python
-* **Libraries:**
+---
 
-  * `pandas`, `numpy` (Data manipulation)
-  * `matplotlib`, `seaborn` (Data visualization)
-  * `scikit-learn` (Modeling and evaluation)
-  * `xgboost` (Advanced regression modeling)
-* **IDE:** Jupyter Notebook
+## Tools and Libraries Used
 
-## How to Run the Project
+* Python
+* pandas, numpy (data handling)
+* matplotlib, seaborn (visualization)
+* scikit-learn (modeling and preprocessing)
+* RandomForestRegressor (regression model)
 
-1. **Clone the Repository**
+---
 
-   ```bash
-   git clone https://github.com/your-username/airbnb-price-prediction.git
-   cd airbnb-price-prediction
-   ```
+## How to Use This Project
 
-2. **Install Required Libraries**
+* Load the dataset (`airbnb_data.csv`).
+* Follow the preprocessing and feature engineering steps to prepare data.
+* Train the Random Forest model on training data.
+* Evaluate the model on test data.
+* Use the model to predict prices for new Airbnb listings.
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+---
 
-3. **Run the Jupyter Notebook**
+## Conclusion
 
-   ```bash
-   jupyter notebook
-   ```
-
-4. Open the notebook file and execute the cells in order to view the entire process from data preprocessing to final predictions.
-
-
-## Success Criteria
-
-This project is considered successful if:
-
-* The model achieves acceptable performance metrics on unseen test data.
-* Key drivers influencing Airbnb prices are clearly identified and explained.
-* The model can make reasonably accurate predictions on new listings.
-* Non-technical users (e.g., Airbnb hosts) can understand and apply the insights.
-
-
-## Final Deliverables
-
-* Cleaned and preprocessed dataset
-* Finalized machine learning model
-* Visualization charts and data insights
-* Evaluation metrics for model performance
-* **Presentation Video** (max 5 minutes) summarizing the complete workflow and findings
-
+This project demonstrates how to build an effective machine learning pipeline to predict Airbnb listing prices. The model and analysis provide valuable insights to hosts and stakeholders, helping them understand key pricing factors and improve revenue strategies.
