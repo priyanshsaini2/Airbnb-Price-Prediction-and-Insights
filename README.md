@@ -1,4 +1,4 @@
-# Airbnb Price Prediction Using Machine Learning (Part 1)
+# Airbnb Price Prediction Using Machine Learning 
 
 ## Project Overview
 
